@@ -13,15 +13,11 @@ module.exports = {
   },
 
   output: {
-    publicPath: "http://localhost:8080/",
+    publicPath: "http://localhost:3001/",
   },
 
   resolve: {
     extensions: [".jsx", ".js", ".json"],
-  },
-
-  devServer: {
-    port: 8080,
   },
 
   module: {
@@ -39,18 +35,23 @@ module.exports = {
       },
     ],
   },
+
+  devServer: {
+    port: 3001,
+  },
+
   plugins: [
     new ModuleFederationPlugin({
-      name: "home",
-      library: { type: "var", name: "home" },
+      name: "nav",
+      library: { type: "var", name: "nav" },
       filename: "remoteEntry.js",
       remotes: {
-        nav: "nav",
+        home: "home",
       },
       exposes: {
-        context: "./src/context",
+        Header: "./src/Header",
       },
-      shared: ["react"],
+      shared: ["react", "recoil"],
     }),
     new HtmlWebPackPlugin({
       template: "./src/index.html",

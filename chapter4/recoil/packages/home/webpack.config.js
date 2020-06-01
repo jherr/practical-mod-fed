@@ -48,9 +48,9 @@ module.exports = {
         nav: "nav",
       },
       exposes: {
-        context: "./src/context",
+        atoms: "./src/atoms",
       },
-      shared: ["react"],
+      shared: ["react", "recoil"],
     }),
     new HtmlWebPackPlugin({
       template: "./src/index.html",
