@@ -2,6 +2,9 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
 module.exports = {
+  resolve: {
+    extensions: [".jsx", ".js", ".json"],
+  },
   module: {
     rules: [
       {
@@ -26,7 +29,7 @@ module.exports = {
         nav: "nav",
       },
       exposes: {},
-      shared: ["react"],
+      shared: ["react", "redux", "react-redux"],
     }),
     new HtmlWebPackPlugin({
       template: "./src/index.html",

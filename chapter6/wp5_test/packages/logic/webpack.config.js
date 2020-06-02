@@ -2,6 +2,12 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
 module.exports = {
+  output: {
+    publicPath: "http://localhost:3001/",
+  },
+  resolve: {
+    extensions: [".jsx", ".js", ".json"],
+  },
   module: {
     rules: [
       {
@@ -19,14 +25,18 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: "home",
-      library: { type: "var", name: "home" },
+      name: "logic",
+      library: { type: "var", name: "logic" },
       filename: "remoteEntry.js",
-      remotes: {
-        nav: "nav",
+      remotes: {},
+      exposes: {
+        analyticsFunc: "./src/analyticsFunc",
+        arrayValue: "./src/arrayValue",
+        classExport: "./src/classExport",
+        objectValue: "./src/objectValue",
+        singleValue: "./src/singleValue",
       },
-      exposes: {},
-      shared: ["react"],
+      shared: [],
     }),
     new HtmlWebPackPlugin({
       template: "./src/index.html",

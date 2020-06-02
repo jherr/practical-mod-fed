@@ -23,10 +23,10 @@ module.exports = {
       library: { type: "var", name: "home" },
       filename: "remoteEntry.js",
       remotes: {
-        nav: "nav",
+        logic: "logic",
       },
       exposes: {},
-      shared: ["react"],
+      shared: ["react", "react-dom"],
     }),
     new HtmlWebPackPlugin({
       template: "./src/index.html",

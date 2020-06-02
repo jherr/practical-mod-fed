@@ -23,7 +23,7 @@ module.exports = {
       library: { type: "var", name: "home" },
       filename: "remoteEntry.js",
       remotes: {
-        nav: "nav",
+        nav: "nav@http://localhost:3001/remoteEntry.js",
       },
       exposes: {},
       shared: ["react"],
