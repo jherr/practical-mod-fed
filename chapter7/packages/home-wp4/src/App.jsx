@@ -45,22 +45,8 @@ const useDynamicScript = (url) => {
   };
 };
 
-const RemoteReactComponent = ({ url, scope, module, ...props }) => {
+const DynamicWidget = ({ url, scope, module, ...props }) => {
   const { ready, failed } = useDynamicScript(url);
-
-  if (ready) {
-    const o = global.__webpack_require__ ? global.__webpack_require__.o : {};
-    window[scope].override(
-      Object.assign(
-        {
-          react: () => Promise.resolve().then(() => () => require("react")),
-          "react-dom": () =>
-            Promise.resolve().then(() => () => require("react-dom")),
-        },
-        o
-      )
-    );
-  }
 
   if (!ready) {
     return <h2>Loading dynamic script: {url}</h2>;
@@ -69,6 +55,15 @@ const RemoteReactComponent = ({ url, scope, module, ...props }) => {
   if (failed) {
     return <h2>Failed to load dynamic script: {url}</h2>;
   }
+
+  window[scope].override(
+    Object.assign(
+      {
+        react: () => Promise.resolve().then(() => () => require("react")),
+      },
+      global.__webpack_require__ ? global.__webpack_require__.o : {}
+    )
+  );
 
   const Component = React.lazy(() =>
     window[scope].get(module).then((factory) => {
@@ -86,7 +81,7 @@ const RemoteReactComponent = ({ url, scope, module, ...props }) => {
 
 const App = () => (
   <div>
-    <RemoteReactComponent
+    <DynamicWidget
       url={"http://localhost:8082/remoteEntry.js"}
       scope={"widget"}
       module={"Widget"}

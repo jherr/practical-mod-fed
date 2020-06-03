@@ -5,13 +5,12 @@ module.exports = {
   output: {
     publicPath: "http://localhost:8082/",
   },
+  devServer: {
+    port: 8082,
+  },
 
   resolve: {
     extensions: [".jsx", ".js", ".json"],
-  },
-
-  devServer: {
-    port: 8082,
   },
 
   module: {

@@ -1,16 +1,25 @@
-const HtmlWebPackPlugin = require("html-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
 module.exports = {
-  resolve: {
-    extensions: [".jsx", ".js", ".json"],
+  entry: "./src/index",
+  cache: false,
+
+  mode: "development",
+  devtool: "source-map",
+
+  optimization: {
+    minimize: false,
   },
+
   output: {
     publicPath: "http://localhost:3001/",
   },
+
   resolve: {
     extensions: [".jsx", ".js", ".json"],
   },
+
   module: {
     rules: [
       {
@@ -26,19 +35,26 @@ module.exports = {
       },
     ],
   },
+
   plugins: [
     new ModuleFederationPlugin({
-      name: "nav",
-      library: { type: "var", name: "nav" },
+      name: "home",
+      library: { type: "var", name: "home" },
       filename: "remoteEntry.js",
-      remotes: {},
-      exposes: {
-        Header: "./src/index",
+      remotes: {
+        search: "search",
+        profile: "profile",
       },
-      shared: ["react"],
+      exposes: { Home: "./src/Home" },
+      shared: ["react", "react-dom", "antd"],
     }),
-    new HtmlWebPackPlugin({
+    new HtmlWebpackPlugin({
       template: "./src/index.html",
     }),
   ],
+
+  devServer: {
+    port: 3001,
+    historyApiFallback: true,
+  },
 };

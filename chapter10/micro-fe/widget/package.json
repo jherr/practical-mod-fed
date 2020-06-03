@@ -1,9 +1,9 @@
 {
-  "name": "home-wp4",
+  "name": "widget",
   "version": "1.0.0",
   "scripts": {
     "build": "webpack --mode production",
-    "start": "webpack-dev-server --open --mode development --liveReload"
+    "start": "cd dist && PORT=3002 npx servor"
   },
   "license": "MIT",
   "author": {
@@ -16,9 +16,9 @@
     "@babel/preset-react": "^7.8.3",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.5.3",
-    "html-webpack-plugin": "^4.3.0",
+    "html-webpack-plugin": "git://github.com/ScriptedAlchemy/html-webpack-plugin#master",
     "style-loader": "^1.2.1",
-    "webpack": "^4.43.0",
+    "webpack": "^5.0.0-beta.16",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.11.0"
   },

@@ -2,6 +2,9 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
 module.exports = {
+  resolve: {
+    extensions: [".jsx", ".js", ".json"],
+  },
   module: {
     rules: [
       {

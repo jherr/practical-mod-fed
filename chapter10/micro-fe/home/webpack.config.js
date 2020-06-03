@@ -2,15 +2,18 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
 module.exports = {
-  resolve: {
-    extensions: [".jsx", ".js", ".json"],
-  },
   output: {
-    publicPath: "http://localhost:3001/",
+    publicPath: "http://localhost:8080/",
   },
+
   resolve: {
     extensions: [".jsx", ".js", ".json"],
   },
+
+  devServer: {
+    port: 8080,
+  },
+
   module: {
     rules: [
       {
@@ -26,15 +29,16 @@ module.exports = {
       },
     ],
   },
+
   plugins: [
     new ModuleFederationPlugin({
-      name: "nav",
-      library: { type: "var", name: "nav" },
+      name: "home",
+      library: { type: "var", name: "home" },
       filename: "remoteEntry.js",
-      remotes: {},
-      exposes: {
-        Header: "./src/index",
+      remotes: {
+        widget: "widget",
       },
+      exposes: {},
       shared: ["react"],
     }),
     new HtmlWebPackPlugin({
