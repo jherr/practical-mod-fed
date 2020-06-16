@@ -1,7 +1,8 @@
 import React from "react";
+import analyticsBus from "home/analytics";
 
-const useSubject = (subject) => {
-  const [value, valueSet] = React.useState(0);
+const useSubject = (subject, initialValue) => {
+  const [value, valueSet] = React.useState(initialValue);
   React.useEffect(() => {
     const sub = subject.subscribe(valueSet);
     return () => {
@@ -12,11 +13,18 @@ const useSubject = (subject) => {
 };
 
 const Header = ({ count, onClear }) => {
-  const itemCount = useSubject(count);
+  const itemCount = useSubject(count, 0);
   return (
     <header style={{ fontSize: "xx-large " }}>
       <span>Header - Cart count is {itemCount}</span>
-      <button onClick={onClear}>Clear</button>
+      <button
+        onClick={() => {
+          analyticsBus.next({ type: "onClear" });
+          onClear();
+        }}
+      >
+        Clear
+      </button>
     </header>
   );
 };

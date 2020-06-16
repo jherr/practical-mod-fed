@@ -27,8 +27,11 @@ module.exports = {
       filename: "remoteEntry.js",
       remotes: {
         nav: "nav",
+        home: "home",
       },
-      exposes: {},
+      exposes: {
+        "./analytics": "./src/analytics",
+      },
       shared: ["react", "rxjs"],
     }),
     new HtmlWebPackPlugin({

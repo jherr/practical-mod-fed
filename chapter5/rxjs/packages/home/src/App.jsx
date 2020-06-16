@@ -2,14 +2,20 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Subject } from "rxjs";
 
+import analyticsBus from "home/analytics";
+
 import "./index.css";
+
+analyticsBus.subscribe((evt) => {
+  console.log(`analytics: ${JSON.stringify(evt)}`);
+});
 
 const Header = React.lazy(() => import("nav/Header"));
 
 const count = new Subject(0);
 
-const useSubject = (subject) => {
-  const [value, valueSet] = React.useState(0);
+const useSubject = (subject, initialValue) => {
+  const [value, valueSet] = React.useState(initialValue);
   React.useEffect(() => {
     const sub = subject.subscribe(valueSet);
     return () => {
@@ -20,10 +26,12 @@ const useSubject = (subject) => {
 };
 
 const App = () => {
-  const itemCount = useSubject(count);
+  const itemCount = useSubject(count, 0);
 
   const onAddToCart = () => {
-    count.next(itemCount + 1);
+    const value = itemCount + 1;
+    analyticsBus.next({ type: "addToCart", value });
+    count.next(value);
   };
 
   return (
