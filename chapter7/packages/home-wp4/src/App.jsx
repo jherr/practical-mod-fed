@@ -56,7 +56,7 @@ const DynamicWidget = ({ url, scope, module, ...props }) => {
     return <h2>Failed to load dynamic script: {url}</h2>;
   }
 
-  window[scope].override(
+  window[scope].init(
     Object.assign(
       {
         react: () => Promise.resolve().then(() => () => require("react")),
@@ -84,7 +84,7 @@ const App = () => (
     <DynamicWidget
       url={"http://localhost:8082/remoteEntry.js"}
       scope={"widget"}
-      module={"Widget"}
+      module={"./Widget"}
     />
     <div>Hi there, I'm React from React in Webpack 4.</div>
   </div>

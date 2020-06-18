@@ -44,6 +44,8 @@ const wrapComponent = (Component) => ({ error, delayed, ...props }) => (
 
 const Header = wrapComponent(React.lazy(() => import("nav/Header")));
 
+const cartStore = observable({ count: 0 });
+
 const App = observer(({ store }) => {
   return (
     <div>
