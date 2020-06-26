@@ -1,16 +1,18 @@
 {
-  "name": "wp5-mfe-starter",
+  "name": "resilient-header",
+  "version": "1.0.0",
+  "license": "MIT",
   "private": true,
-  "scripts": {
-    "build": "yarn workspaces run build",
-    "serve": "wsrun --parallel serve",
-    "start": "concurrently \"wsrun --parallel start\""
-  },
   "workspaces": [
     "packages/*"
   ],
-  "devDependencies": {
-    "concurrently": "^5.1.0",
-    "wsrun": "^5.2.0"
+  "scripts": {
+    "wipe": "rm -fr node_modules packages/**/node_modules",
+    "build": "yarn workspaces run build",
+    "start": "concurrently \"wsrun --parallel start\""
+  },
+  "dependencies": {
+    "concurrently": "^5.2.0",
+    "wsrun": "^5.2.1"
   }
 }

@@ -1,4 +1,3 @@
-const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
 module.exports = {
@@ -30,12 +29,11 @@ module.exports = {
       filename: "remoteEntry.js",
       remotes: {},
       exposes: {
-        "./Header": "./src/index",
+        "./Header": {
+          import: "./Header",
+        },
       },
       shared: ["react"],
-    }),
-    new HtmlWebPackPlugin({
-      template: "./src/index.html",
     }),
   ],
 };
